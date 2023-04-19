@@ -13,7 +13,7 @@ class Orc_L(Animation.animate_sprite):
         self.attack_speed = 500
         self.rect = self.image.get_rect()
         self.rect.x = -10
-        self.rect.y = 690
+        self.rect.y = 680
         self.visible = False
         self.player = 'player1'
         self.last_attack_time = 0

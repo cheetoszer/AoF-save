@@ -12,7 +12,7 @@ class Orc_R(Animation.animate_sprite):
         self.attack_speed = 500
         self.rect = self.image.get_rect()
         self.rect.x = 1300
-        self.rect.y = 690
+        self.rect.y = 680
         self.visible = False
         self.player = 'player2'
         self.last_attack_time = 0
@@ -40,7 +40,7 @@ class Orc_R(Animation.animate_sprite):
             self.attack_orc()
 
     def update_hp_bar(self, surface):
-        bar_color = (111, 210, 46)
+        bar_color = (44, 117, 255)
         back_bar_color = (60,60,60)
         bar_position = [self.rect.x+100, self.rect.y+40, self.hp/3, 5]
         back_bar_position = [self.rect.x+100, self.rect.y+40, self.max_hp/3, 5]

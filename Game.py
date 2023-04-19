@@ -57,53 +57,57 @@ class Game:
             barracks.buy_orc()
 
     def spawn_orc_r(self):
-        barracks1 = self.group_base_r.sprites()[0]
-        if barracks1.gold >= 50:
+        barracks = self.group_base_r.sprites()[0]
+        if barracks.gold >= 50:
             orcs_r = Orc_R(self, (230,230))
             self.all_orcs_r.add(orcs_r)
-            barracks1.buy_orc()
+            barracks.buy_orc()
 
     def spawn_king_l(self):
         barracks = self.group_base_l.sprites()[0]
-        if barracks.gold >= 50:
+        if barracks.gold >= 100:
             king_l = King_l(self, (230,230))
             self.all_kings_l.add(king_l)
             barracks.buy_king()
 
     def spawn_king_r(self):
-        barracks1 = self.group_base_r.sprites()[0]
-        if barracks1.gold >= 50:
+        barracks = self.group_base_r.sprites()[0]
+        if barracks.gold >= 100:
             king_r = King_r(self, (230,230))
             self.all_kings_r.add(king_r)
-            barracks1.buy_king()
+            barracks.buy_king()
 
     def spawn_ronin_l(self):
         barracks = self.group_base_l.sprites()[0]
-        if barracks.gold >= 50:
-            ronin_l = Ronin_l(self, (230,230))
-            self.all_ronins_l.add(ronin_l)
-            barracks.buy_ronin()
+        if barracks.gold >= 200:
+            if barracks.age >= 2:
+                ronin_l = Ronin_l(self, (230,230))
+                self.all_ronins_l.add(ronin_l)
+                barracks.buy_ronin()
 
     def spawn_ronin_r(self):
-        barracks1 = self.group_base_r.sprites()[0]
-        if barracks1.gold >= 50:
-            ronin_r = Ronin_r(self, (230,230))
-            self.all_ronins_r.add(ronin_r)
-            barracks1.buy_ronin()
+        barracks = self.group_base_r.sprites()[0]
+        if barracks.gold >= 200:
+            if barracks.age >= 2:
+                ronin_r = Ronin_r(self, (230,230))
+                self.all_ronins_r.add(ronin_r)
+                barracks.buy_ronin()
     
     def spawn_stricker_r(self):
-        barracks1 = self.group_base_r.sprites()[0]
-        if barracks1.gold >= 50:
-            stricker_r = Stricker_r(self, (230,230))
-            self.all_strickers_r.add(stricker_r)
-            barracks1.buy_stricker()
+        barracks = self.group_base_r.sprites()[0]
+        if barracks.gold >= 400:
+            if barracks.age >= 2:
+                stricker_r = Stricker_r(self, (230,230))
+                self.all_strickers_r.add(stricker_r)
+                barracks.buy_stricker()
 
     def spawn_stricker_l(self):
         barracks = self.group_base_l.sprites()[0]
-        if barracks.gold >= 50:
-            stricker_l = Stricker_l(self, (230,230))
-            self.all_strickers_l.add(stricker_l)
-            barracks.buy_stricker()
+        if barracks.gold >= 400:
+            if barracks.age >= 2:
+                stricker_l = Stricker_l(self, (230,230))
+                self.all_strickers_l.add(stricker_l)
+                barracks.buy_stricker()
 
     def check_collision(self, sprite, group):
         return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
@@ -138,18 +142,24 @@ class Game:
             self.last_give_time = current_time
             barracks = self.group_base_l.sprites()[0]
             barracks1 = self.group_base_r.sprites()[0]
+            
             if barracks.age == 1:
                 barracks.add_gold_age1()
+            else :
+                barracks.add_gold_age2()
+
             if barracks1.age == 1:
                 barracks1.add_gold_age1()
-
+            else :
+                barracks1.add_gold_age2()
+            
     def next_age_l(self):
         barracks = self.group_base_l.sprites()[0]
         if barracks.xp >= 100:
             barracks.evolve_l()
 
     def next_age_r(self):
-        barracks1 = self.group_base_r.sprites()[0]
-        if barracks1.xp >= 100:
-            barracks1.evolve_r()
+        barracks = self.group_base_r.sprites()[0]
+        if barracks.xp >= 100:
+            barracks.evolve_r()
     

@@ -8,7 +8,7 @@ class Barracks(pygame.sprite.Sprite):
         self.max_hp = 1000
         self.hp = 1000
         self.attack_speed = 500
-        self.gold = 5000
+        self.gold = 500
         self.xp = 0
         self.age = 1
         self.image = pygame.image.load(image_path)

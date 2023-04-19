@@ -5,14 +5,14 @@ class Ronin_l(Animation.animate_sprite):
     
     def __init__(self, Game, size):
         super().__init__("Ronin_l", (230,230))
-        self.max_hp = 100
-        self.hp = 100
-        self.attack_value = 25
-        self.speed = 3
-        self.attack_speed = 500
+        self.max_hp = 400
+        self.hp = 400
+        self.attack_value = 100
+        self.speed = 5
+        self.attack_speed = 400
         self.rect = self.image.get_rect()
         self.rect.x = -10
-        self.rect.y = 690
+        self.rect.y = 675
         self.visible = False
         self.player = 'player1'
         self.last_attack_time = 0
@@ -43,8 +43,8 @@ class Ronin_l(Animation.animate_sprite):
     def update_hp_bar(self, surface):
         bar_color = (111, 210, 46)
         back_bar_color = (60,60,60)
-        bar_position = [self.rect.x+100, self.rect.y+40, self.hp/3, 5]
-        back_bar_position = [self.rect.x+100, self.rect.y +40, self.max_hp/3, 5]
+        bar_position = [self.rect.x+50, self.rect.y+40, self.hp/3, 5]
+        back_bar_position = [self.rect.x+50, self.rect.y +40, self.max_hp/3, 5]
         pygame.draw.rect(surface, back_bar_color, back_bar_position)
         pygame.draw.rect(surface, bar_color, bar_position)
         #update animation

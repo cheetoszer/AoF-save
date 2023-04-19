@@ -179,7 +179,7 @@ while running:
             elif event.key == pygame.K_z:
                 game.spawn_king_l()
             elif event.key == pygame.K_e:
-                game.spawn_stricker_l()
+                    game.spawn_stricker_l()
             elif event.key == pygame.K_r:
                 game.spawn_ronin_l()
             elif event.key == pygame.K_t:
