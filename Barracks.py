@@ -8,7 +8,7 @@ class Barracks(pygame.sprite.Sprite):
         self.max_hp = 1000
         self.hp = 1000
         self.attack_speed = 500
-        self.gold = 500
+        self.gold = 5000
         self.xp = 0
         self.age = 1
         self.image = pygame.image.load(image_path)
@@ -28,18 +28,56 @@ class Barracks(pygame.sprite.Sprite):
     def buy_orc(self):
         self.gold -= 50
 
+    def buy_king(self):
+        self.gold -= 100
+
+    def buy_stricker(self):
+        self.gold -= 200
+
+    def buy_ronin(self):
+        self.gold -= 400
+
     def add_gold_orc(self):
-        self.gold += 65
+        self.gold += 25
+
+    def add_gold_king(self):
+        self.gold += 50
+
+    def add_gold_stricker(self):
+        self.gold += 100
+
+    def add_gold_ronin(self):
+        self.gold += 200
     
     def add_xp_orc(self):
-        self.xp += 5
+        self.xp += 10
+
+    def add_xp_king(self):
+        self.xp += 20
+
+    def add_xp_stricker(self):
+        self.xp += 40
+        
+    def add_xp_ronin(self):
+        self.xp += 80
 
     def add_gold_age1(self):
         self.gold += 15
 
+    def add_gold_age2(self):
+        self.gold += 50
+
     def damage(self, amount):
         self.hp -= amount
     
-    def evolve(self):
+    def evolve_l(self):
         self.age += 1
-        self.image = pygame.image.load("le lien vers l'image de la base lvl 2")
+        self.hp += 2000
+        self.image = pygame.image.load("Asset\Base\cottage.png")
+        self.image = pygame.transform.scale(self.image,(350,320))
+
+    def evolve_r(self):
+        self.age += 1
+        self.hp += 2000
+        self.image = pygame.image.load("Asset\Base\cottage1.png")
+        self.image = pygame.transform.scale(self.image,(350,320))

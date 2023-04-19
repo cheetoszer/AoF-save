@@ -2,6 +2,14 @@ import pygame
 from Orc_L import *
 from Orc_R import *
 from Barracks import *
+from Stricker_L import *
+from Stricker_R import *
+from King_L import *
+from Ronin_L import *
+from Ronin_R import *
+from King_R import *
+from Animation import *
+
 
 class Game:
 
@@ -12,11 +20,22 @@ class Game:
         self.group_base_r = pygame.sprite.GroupSingle()
         #Générer les deux base au lancement du jeu
         self.spawn_barracks()
-        self.spawn_orc_l
         #groupe orc gauche
         self.all_orcs_l = pygame.sprite.Group()
         #groupe orc droit
         self.all_orcs_r = pygame.sprite.Group()
+        #groupe stricker gauche
+        self.all_strickers_l = pygame.sprite.Group()
+        #groupe stricker droit
+        self.all_strickers_r = pygame.sprite.Group()
+        #groupe king gauche
+        self.all_kings_l = pygame.sprite.Group()
+        #groupe king droit
+        self.all_kings_r = pygame.sprite.Group()
+        #groupe ronin gauche
+        self.all_ronins_l = pygame.sprite.Group()
+        #groupe ronin droit
+        self.all_ronins_r = pygame.sprite.Group()
         #Typo pour texte
         self.font = pygame.font.Font(None, 30)
         #Dernier don gold
@@ -32,7 +51,7 @@ class Game:
         barracks = self.group_base_l.sprites()[0]
         # vérifier si le joueur a assez d'argent
         if barracks.gold >= 50:
-            orcs_l = Orc_L(self, (200,200))
+            orcs_l = Orc_L(self, (230,230))
             self.all_orcs_l.add(orcs_l)
             # récupérer l'instance de Barracks de la base gauche
             barracks.buy_orc()
@@ -40,9 +59,51 @@ class Game:
     def spawn_orc_r(self):
         barracks1 = self.group_base_r.sprites()[0]
         if barracks1.gold >= 50:
-            orcs_r = Orc_R(self, (200,200))
+            orcs_r = Orc_R(self, (230,230))
             self.all_orcs_r.add(orcs_r)
             barracks1.buy_orc()
+
+    def spawn_king_l(self):
+        barracks = self.group_base_l.sprites()[0]
+        if barracks.gold >= 50:
+            king_l = King_l(self, (230,230))
+            self.all_kings_l.add(king_l)
+            barracks.buy_king()
+
+    def spawn_king_r(self):
+        barracks1 = self.group_base_r.sprites()[0]
+        if barracks1.gold >= 50:
+            king_r = King_r(self, (230,230))
+            self.all_kings_r.add(king_r)
+            barracks1.buy_king()
+
+    def spawn_ronin_l(self):
+        barracks = self.group_base_l.sprites()[0]
+        if barracks.gold >= 50:
+            ronin_l = Ronin_l(self, (230,230))
+            self.all_ronins_l.add(ronin_l)
+            barracks.buy_ronin()
+
+    def spawn_ronin_r(self):
+        barracks1 = self.group_base_r.sprites()[0]
+        if barracks1.gold >= 50:
+            ronin_r = Ronin_r(self, (230,230))
+            self.all_ronins_r.add(ronin_r)
+            barracks1.buy_ronin()
+    
+    def spawn_stricker_r(self):
+        barracks1 = self.group_base_r.sprites()[0]
+        if barracks1.gold >= 50:
+            stricker_r = Stricker_r(self, (230,230))
+            self.all_strickers_r.add(stricker_r)
+            barracks1.buy_stricker()
+
+    def spawn_stricker_l(self):
+        barracks = self.group_base_l.sprites()[0]
+        if barracks.gold >= 50:
+            stricker_l = Stricker_l(self, (230,230))
+            self.all_strickers_l.add(stricker_l)
+            barracks.buy_stricker()
 
     def check_collision(self, sprite, group):
         return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
@@ -51,6 +112,10 @@ class Game:
         # mettre à jour le texte affiché sur l'écran pour chaque base
         base_l = self.group_base_l.sprites()[0]
         base_r = self.group_base_r.sprites()[0]
+        # ajouter des rectangle gris derrière le texte
+        #pygame.draw.rect(screen, (0, 0, 0), (20, 20, 150, 60))
+        #pygame.draw.rect(screen, (0, 0, 0), (1420, 20, 100, 30))
+        # générer le texte à afficher
         gold_l_text = self.font.render("Gold: {}".format(base_l.gold), True, (255, 255, 255))
         gold_r_text = self.font.render("{} :Gold".format(base_r.gold), True, (255, 255, 255))
         # afficher le texte sur l'écran
@@ -78,4 +143,13 @@ class Game:
             if barracks1.age == 1:
                 barracks1.add_gold_age1()
 
+    def next_age_l(self):
+        barracks = self.group_base_l.sprites()[0]
+        if barracks.xp >= 100:
+            barracks.evolve_l()
+
+    def next_age_r(self):
+        barracks1 = self.group_base_r.sprites()[0]
+        if barracks1.xp >= 100:
+            barracks1.evolve_r()
     

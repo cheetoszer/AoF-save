@@ -1,0 +1,6 @@
+Nom pour le jeu:
+Evolution War
+
+Attaque:
+-Il faut que les spirtes ne se stack pas.
+-Il faut que les sprites attaque tous en même temps.

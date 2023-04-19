@@ -1,18 +1,19 @@
 import pygame
 import Animation
+import random
 
 class Orc_L(Animation.animate_sprite):
     
     def __init__(self, Game, size):
-        super().__init__("Orc_l", (300,300))
+        super().__init__("Orc_l", (230,230))
         self.max_hp = 100
         self.hp = 100
         self.attack_value = 25
         self.speed = 3
         self.attack_speed = 500
         self.rect = self.image.get_rect()
-        self.rect.x = 30
-        self.rect.y = 720
+        self.rect.x = -10
+        self.rect.y = 690
         self.visible = False
         self.player = 'player1'
         self.last_attack_time = 0
@@ -23,17 +24,28 @@ class Orc_L(Animation.animate_sprite):
 
     def move_right(self):
         if not self.Game.check_collision(self, self.Game.all_orcs_r):
-            if not self.Game.check_collision(self, self.Game.group_base_r):
-                self.rect.x += self.speed
-        elif self.Game.check_collision(self, self.Game.all_orcs_r):
+            if not self.Game.check_collision(self, self.Game.all_kings_r):
+                if not self.Game.check_collision(self, self.Game.all_strickers_r):
+                    if not self.Game.check_collision(self, self.Game.all_ronins_r):
+                        if not self.Game.check_collision(self, self.Game.group_base_r):
+                            self.rect.x += self.speed
+                        else:
+                            self.attack_base_r()
+                    else:
+                        self.attack_ronin()
+                else:
+                    self.attack_stricker()
+            else:
+                self.attack_king()
+        else:
             self.attack_orc()
 
 
     def update_hp_bar(self, surface):
         bar_color = (111, 210, 46)
         back_bar_color = (60,60,60)
-        bar_position = [self.rect.x+28, self.rect.y - 10, self.hp/3, 5]
-        back_bar_position = [self.rect.x+28, self.rect.y - 10, self.max_hp/3, 5]
+        bar_position = [self.rect.x+100, self.rect.y+40, self.hp/3, 5]
+        back_bar_position = [self.rect.x+100, self.rect.y +40, self.max_hp/3, 5]
         pygame.draw.rect(surface, back_bar_color, back_bar_position)
         pygame.draw.rect(surface, bar_color, bar_position)
         #update animation
@@ -43,12 +55,34 @@ class Orc_L(Animation.animate_sprite):
 
     def damage(self, amount):
         self.hp -= amount
+         # create red circles animation
 
     def attack_orc(self):
         current_time = pygame.time.get_ticks()
         for orc_r in self.Game.check_collision(self, self.Game.all_orcs_r):
             if current_time - self.last_attack_time >= self.attack_speed:
                 orc_r.damage(self.attack_value)
+                self.last_attack_time = current_time
+    
+    def attack_stricker(self):
+        current_time = pygame.time.get_ticks()
+        for stricker_r in self.Game.check_collision(self, self.Game.all_strickers_r):
+            if current_time - self.last_attack_time >= self.attack_speed:
+                stricker_r.damage(self.attack_value)
+                self.last_attack_time = current_time
+
+    def attack_ronin(self):
+        current_time = pygame.time.get_ticks()
+        for ronin_r in self.Game.check_collision(self, self.Game.all_ronins_r):
+            if current_time - self.last_attack_time >= self.attack_speed:
+                ronin_r.damage(self.attack_value)
+                self.last_attack_time = current_time
+
+    def attack_king(self):
+        current_time = pygame.time.get_ticks()
+        for king in self.Game.check_collision(self, self.Game.all_kings_r):
+            if current_time - self.last_attack_time >= self.attack_speed:
+                king.damage(self.attack_value)
                 self.last_attack_time = current_time
 
     def attack_base_r(self):
